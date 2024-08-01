@@ -1,30 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
   <head>
-    <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <title>Adoption</title>
+    <meta charset="utf-8">
+    <title></title>
   </head>
   <body>
+  <ul class="nav">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('core.index') }}">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('core.info') }}">About Us</a>
+  </li>
+    {% if current_user.is_authenticated %}
+    <li class="nav-link"><a href="{{ url_for('users.logout') }}">Log Out</a></li>
+    <li class="nav-link"><a href="{{ url_for('users.account') }}">Account</a></li>
+    <li class="nav-link"><a href="{{ url_for('blog_posts.create_post') }}">Create Post</a></li>
+    {% else %}
+    <li class="nav-link"><a href="{{ url_for('users.login') }}">Log In</a></li>
+    <li class="nav-link"><a href="{{ url_for('users.register') }}">Register</a></li>
+    {% endif %}
 
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="{{ url_for('index') }}">Home</a>
-      <a class="nav-item nav-link" href="{{ url_for('add_pup') }}">Add Pup</a>
-      <a class="nav-item nav-link" href="{{ url_for('list_pup') }}">List of Pups</a>
-      <a class="nav-item nav-link" href="{{ url_for('del_pup') }}">Delete Pup</a>
+</ul>
+<div class="container">
+  {% block content %}
 
-    </div>
+  {% endblock %}
+</div>
 
-</nav>
 
-    {% block content %}
-
-    {% endblock %}
   </body>
 </html>
